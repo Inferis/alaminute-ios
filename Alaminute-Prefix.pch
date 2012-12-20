@@ -1,0 +1,18 @@
+//
+// Prefix header for all source files of the 'Alaminute' target in the 'Alaminute' project
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iOS SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+    #import "IIViewDeckController.h"
+    #import "UIColor+Hex.h"
+    #import "UITableViewCell+AutoDequeue.h"
+
+#endif
