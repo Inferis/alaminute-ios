@@ -9,10 +9,22 @@
 #endif
 
 #ifdef __OBJC__
-    #import <UIKit/UIKit.h>
-    #import <Foundation/Foundation.h>
-    #import "IIViewDeckController.h"
-    #import "UIColor+Hex.h"
-    #import "UITableViewCell+AutoDequeue.h"
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "IIViewDeckController.h"
+#import "UIColor+Hex.h"
+#import "UITableViewCell+AutoDequeue.h"
+#import "Coby.h"
+#import "Tin.h"
+#import "TinResponse.h"
+#import "MBProgressHUD.h"
+
+#import "Backend.h"
+#import "AppDelegate.h"
+
+#define APPDELEGATE ((AppDelegate*)[[UIApplication sharedApplication] delegate])
+#define TIN [APPDELEGATE tin]
+#define BACKEND [APPDELEGATE backend]
 
 #endif

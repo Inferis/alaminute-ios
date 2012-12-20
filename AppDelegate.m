@@ -8,28 +8,55 @@
 
 #import "AppDelegate.h"
 #import "IIViewDeckController.h"
+#import "IISideController.h"
 #import "AllFoodViewController.h"
 #import "CartViewController.h"
 
-@implementation AppDelegate
+@implementation AppDelegate {
+    Backend* _backend;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     AllFoodViewController* foodController = [[AllFoodViewController alloc] initWithNibName:@"AllFoodViewController" bundle:nil];
-    CartViewController* cartController = [[CartViewController alloc] initWithNibName:@"CartViewController" bundle:nil];
-    
     UINavigationController* foodNavController = [[UINavigationController alloc] initWithRootViewController:foodController];
     foodNavController.navigationBar.tintColor = [UIColor colorWithHex:0xadd653];
-    
-    IIViewDeckController* deckController = [[IIViewDeckController alloc] initWithCenterViewController:foodNavController leftViewController:cartController];
+
+    CartViewController* cartController = [[CartViewController alloc] initWithNibName:@"CartViewController" bundle:nil];
+    IISideController* sideCartController = [[IISideController alloc] initWithViewController:cartController];
+
+    IIViewDeckController* deckController = [[IIViewDeckController alloc] initWithCenterViewController:foodNavController leftViewController:sideCartController];
     deckController.sizeMode = IIViewDeckViewSizeMode;
+    deckController.panningMode = IIViewDeckNoPanning;
+    [deckController openLeftViewAnimated:NO];
+    deckController.resizesCenterView = YES;
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = deckController;
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    NSMutableDictionary *titleBarAttributes = [NSMutableDictionary dictionaryWithDictionary: [[UINavigationBar appearance] titleTextAttributes]];
+    [titleBarAttributes setValue:[UIFont fontWithName:@"HelveticaNeue-Bold" size:20] forKey:UITextAttributeFont];
+    [titleBarAttributes setValue:[UIColor colorWithHex:0x666666] forKey:UITextAttributeTextColor];
+    [titleBarAttributes setValue:[UIColor colorWithWhite:1 alpha:0.5] forKey:UITextAttributeTextShadowColor];
+    [titleBarAttributes setValue:[NSValue valueWithCGSize:(CGSize) { 0, 1 }] forKey:UITextAttributeTextShadowOffset];
+    [[UINavigationBar appearance] setTitleTextAttributes:titleBarAttributes];
+    
     return YES;
+}
+
+- (Tin*)tin {
+    Tin* tin = [Tin new];
+    tin.baseURI = @"http://hummercatch.herokuapp.com";
+    return tin;
+}
+
+- (Backend*)backend {
+    if (!_backend)
+        _backend = [Backend new];
+    return _backend;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

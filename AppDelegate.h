@@ -12,4 +12,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+- (Tin*)tin;
+- (Backend*)backend;
+
 @end
