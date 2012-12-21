@@ -11,6 +11,7 @@
 #import "IISideController.h"
 #import "AllFoodViewController.h"
 #import "CartViewController.h"
+#import "TestFlight.h"
 
 @implementation AppDelegate {
     Backend* _backend;
@@ -18,6 +19,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+#if !DEBUG
+    [TestFlight takeOff:@"95c7c2a7e1a1929c69c4f452f3b85108_MjQyNjIwMTItMDctMDMgMTc6MzU6NTQuNTc0NzYw"];
+#endif
+    
     AllFoodViewController* foodController = [[AllFoodViewController alloc] initWithNibName:@"AllFoodViewController" bundle:nil];
     UINavigationController* foodNavController = [[UINavigationController alloc] initWithRootViewController:foodController];
     foodNavController.navigationBar.tintColor = [UIColor colorWithHex:0xadd653];
