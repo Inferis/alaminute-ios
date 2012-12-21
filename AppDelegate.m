@@ -11,6 +11,7 @@
 #import "IISideController.h"
 #import "AllFoodViewController.h"
 #import "CartViewController.h"
+#import "TestFlight.h"
 
 @implementation AppDelegate {
     Backend* _backend;
